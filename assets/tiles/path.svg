@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- 确保视口大小正好是32x32 -->
+  <svg viewBox="0 0 32 32">
+    <!-- 背景矩形完全填充32x32区域 -->
+    <rect x="0" y="0" width="32" height="32" fill="#8B9862"/>
+    <!-- 路径图案也完全填充，不留边缘空白 -->
+    <rect x="0" y="0" width="32" height="32" fill="#B5A276"/>
+  </svg>
+  <line x1="0" y1="0" x2="32" y2="32" stroke="#A69268" stroke-width="1"/>
+  <line x1="32" y1="0" x2="0" y2="32" stroke="#A69268" stroke-width="1"/>
+</svg> 

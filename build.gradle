@@ -10,7 +10,7 @@ buildscript {
   }
   dependencies {
     classpath "com.android.tools.build:gradle:8.5.2"
-
+    classpath "com.badlogicgames.gdx:gdx-tools:1.12.0"
   }
 }
 
@@ -72,3 +72,57 @@ subprojects {
 }
 
 eclipse.project.name = 'Crystal Defense' + '-parent'
+
+task convertSvgToPng {
+    doLast {
+        def svgFiles = fileTree('assets').matching {
+            include '**/*.svg'
+        }
+        
+        svgFiles.each { File svg ->
+            def pngPath = svg.absolutePath.replace('.svg', '.png')
+            def inkscapeCmd = ["inkscape",
+                             "--export-type=png",
+                             "--export-filename=${pngPath}",
+                             svg.absolutePath]
+            
+            println "Converting: ${svg.name} to PNG"
+            def process = inkscapeCmd.execute()
+            process.waitFor()
+            
+            if (process.exitValue() == 0) {
+                println "Successfully converted ${svg.name}"
+            } else {
+                println "Error converting ${svg.name}"
+                println "Error: ${process.err.text}"
+            }
+        }
+    }
+}
+
+// 添加纹理打包任务
+task packTextures {
+    dependsOn convertSvgToPng
+    doLast {
+        file("assets/packed").mkdirs()
+        
+        def texturePacker = Class.forName("com.badlogic.gdx.tools.texturepacker.TexturePacker")
+        def settings = Class.forName("com.badlogic.gdx.tools.texturepacker.TexturePacker\$Settings").newInstance()
+        
+        settings.maxWidth = 1024
+        settings.maxHeight = 1024
+        settings.pot = true
+        settings.square = false
+        
+        ["towers", "enemies", "ui", "tiles", "effects"].each { dir ->
+            println "Packing textures from: $dir"
+            texturePacker.process(
+                settings,
+                "assets/$dir",
+                "assets/packed",
+                "${dir}.atlas"
+            )
+        }
+    }
+}
+

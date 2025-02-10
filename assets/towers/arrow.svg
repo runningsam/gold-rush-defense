@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <!-- 塔基座 -->
+  <rect x="8" y="24" width="16" height="8" fill="#8B4513"/>
+  <!-- 塔身 -->
+  <rect x="10" y="8" width="12" height="16" fill="#CD853F"/>
+  <!-- 箭头标识 -->
+  <path d="M16 4 L20 12 L16 10 L12 12 Z" fill="#FF0000"/>
+</svg>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="128" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <!-- 普通按钮 -->
+  <rect x="0" y="0" width="20" height="20" rx="3" 
+        fill="#4A4A4A" stroke="#666666" stroke-width="1"/>
+  
+  <!-- 按下按钮 -->
+  <rect x="20" y="0" width="20" height="20" rx="3" 
+        fill="#333333" stroke="#666666" stroke-width="1"/>
+  
+  <!-- 悬停按钮 -->
+  <rect x="40" y="0" width="20" height="20" rx="3" 
+        fill="#5A5A5A" stroke="#666666" stroke-width="1"/>
+  
+  <!-- 窗口背景 -->
+  <rect x="60" y="0" width="20" height="20" rx="3" 
+        fill="#333333" stroke="#666666" stroke-width="1" 
+        fill-opacity="0.9"/>
+</svg> 
