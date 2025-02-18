@@ -1,18 +1,12 @@
 package code123.games.crystal.ui;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import code123.games.crystal.AssetManager;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import code123.games.crystal.GameWorld;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -21,8 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import java.util.function.Consumer;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class BuildToolbar {
     private Sprite arrowTowerIcon;
@@ -31,7 +25,6 @@ public class BuildToolbar {
     private GameWorld gameWorld;
     private Consumer<String> onTowerSelected;  // 添加回调接口
     
-    private static final float TOOLBAR_HEIGHT = 80;
     private static final float ICON_SIZE = 48;
     private static final float ICON_PADDING = 16;
     private static final int ARROW_TOWER_COST = 100;
@@ -40,7 +33,7 @@ public class BuildToolbar {
     public BuildToolbar(GameWorld gameWorld, Consumer<String> onTowerSelected) {
         this.gameWorld = gameWorld;
         this.onTowerSelected = onTowerSelected;
-        this.toolbarStage = new Stage(new ScreenViewport());
+        this.toolbarStage = new Stage(new FitViewport(800, 480));
         createToolbar();
     }
     
@@ -65,7 +58,10 @@ public class BuildToolbar {
         
         // 创建箭塔按钮
         ImageButton arrowButton = new ImageButton(new TextureRegionDrawable(arrowTowerIcon));
-        Label arrowCostLabel = new Label(ARROW_TOWER_COST + "Gold", skin);
+        Label.LabelStyle labelStyle = skin.get("default", Label.LabelStyle.class);
+        labelStyle.font.getData().setScale(0.3f); // Scale the font to 30%
+        
+        Label arrowCostLabel = new Label(ARROW_TOWER_COST + "Gold", labelStyle);
         arrowCostLabel.setAlignment(Align.top);
         arrowCostLabel.setTouchable(Touchable.disabled);  // 禁用标签的输入事件
         Stack arrowStack = new Stack();
@@ -76,7 +72,7 @@ public class BuildToolbar {
         
         // 创建魔法塔按钮
         ImageButton magicButton = new ImageButton(new TextureRegionDrawable(magicTowerIcon));
-        Label magicCostLabel = new Label(MAGIC_TOWER_COST + "Gold", skin);
+        Label magicCostLabel = new Label(MAGIC_TOWER_COST + "Gold", labelStyle);
         magicCostLabel.setAlignment(Align.top);
         magicCostLabel.setTouchable(Touchable.disabled);  // 禁用标签的输入事件
         Stack magicStack = new Stack();
@@ -113,9 +109,11 @@ public class BuildToolbar {
         // 将表格添加到舞台
         toolbarStage.addActor(buttonTable);
     }
-    
-    public void render(float delta) {
+    public void update(float delta) {
         toolbarStage.act(delta);
+    }
+
+    public void render() {
         toolbarStage.draw();
     }
     
@@ -125,5 +123,9 @@ public class BuildToolbar {
     
     public Stage getStage() {
         return toolbarStage;
+    }
+
+    public void dispose() {
+        toolbarStage.dispose();
     }
 } 

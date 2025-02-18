@@ -9,7 +9,6 @@ import java.util.HashMap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 public class AssetManager implements Disposable {
     private static AssetManager instance;
@@ -42,11 +41,6 @@ public class AssetManager implements Disposable {
         pixmap.fill();
         pixelTexture = new Texture(pixmap);
         pixmap.dispose();
-        
-        // 加载UI字体
-        uiFont = new BitmapFont();
-        uiFont.getData().setScale(1.2f);
-        
         // 加载UI资源
         atlases.put("uiskin", new TextureAtlas(Gdx.files.internal("uiskin/uiskin.atlas")));
         
@@ -55,28 +49,16 @@ public class AssetManager implements Disposable {
     }
     
     private void loadUISkin() {
-        // 加载字体
-        BitmapFont uiFont = new BitmapFont();  // 或者从文件加载特定字体
+        // 加载完整的皮肤文件
+        uiSkin = new Skin(Gdx.files.internal("uiskin/uiskin.json"));
         
-        // 创建皮肤
-        uiSkin = new Skin();
-        
-        // 将字体添加到皮肤中
-        uiSkin.add("default", uiFont);
-        
-        // 创建默认的标签样式
-        LabelStyle labelStyle = new LabelStyle();
-        labelStyle.font = uiFont;
-        uiSkin.add("default", labelStyle);
-        
-
         // 加载UI图标
         Sprite goldIcon = createUISprite("gold_icon");
         Sprite healthIcon = createUISprite("health_icon");
         uiSkin.add("gold_icon", goldIcon);
         uiSkin.add("health_icon", healthIcon);
-        
-        // 加载其他 UI 资源...
+
+        uiFont = uiSkin.get("default", BitmapFont.class);
     }
     
     public Sprite createSprite(String atlasName, String spriteName) {
@@ -86,9 +68,8 @@ public class AssetManager implements Disposable {
             if (region != null) {
                 return new Sprite(region);
             }
-            System.out.println("Sprite not found: " + spriteName + " in atlas: " + atlasName);
         }
-        System.out.println("Atlas not found: " + atlasName);
+        Gdx.app.log("AssetManager", "Atlas not found: " + atlasName);
         return null;
     }
     
@@ -100,9 +81,8 @@ public class AssetManager implements Disposable {
             if (region != null) {
                 return new Sprite(region);
             }
-            System.out.println("Tower sprite not found: " + type);
         }
-        System.out.println("Tower atlas not found");
+        Gdx.app.log("AssetManager", "Tower atlas not found " + type);
         return null;
     }
     
@@ -111,12 +91,10 @@ public class AssetManager implements Disposable {
         if (atlas != null) {
             TextureAtlas.AtlasRegion region = atlas.findRegion(type);
             if (region != null) {
-                System.out.println("Enemy sprite found: " + type);
                 return new Sprite(region);
             }
-            System.out.println("Enemy sprite not found: " + type);
         }
-        System.out.println("Enemy atlas not found");
+        Gdx.app.log("AssetManager", "Enemy atlas not found " + type);
         return null;
     }
     

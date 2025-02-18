@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" version="1.1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <!-- 美洲狮的身体 - 沙褐色 -->
+  <path d="M6 20 L26 20 L24 12 L20 8 L12 8 L8 12 L6 20" fill="#DAA520"/>
+  <!-- 美洲狮的头部 - 深沙褐色 -->
+  <path d="M12 8 L20 8 L22 4 L18 2 L14 2 L10 4 L12 8" fill="#B8860B"/>
+  <!-- 美洲狮的耳朵 - 小而尖 -->
+  <path d="M14 2 L15 0 L16 2" fill="#8B4513"/>
+  <path d="M16 2 L17 0 L18 2" fill="#8B4513"/>
+  <!-- 美洲狮的腿 - 修长有力 -->
+  <path d="M10 20 L8 30 L10 30 L12 20" fill="#DAA520"/>
+  <path d="M20 20 L22 30 L24 30 L22 20" fill="#DAA520"/>
+  <!-- 美洲狮的尾巴 - 长而弯曲 -->
+  <path d="M24 16 L28 14 L30 12 L28 16 L24 16" fill="#DAA520"/>
+  <!-- 美洲狮的面部特征 -->
+  <circle cx="14" cy="6" r="1" fill="#000000"/> <!-- 左眼 -->
+  <circle cx="18" cy="6" r="1" fill="#000000"/> <!-- 右眼 -->
+  <path d="M15 7 L17 7" stroke="#000000" stroke-width="0.5" fill="none"/> <!-- 鼻子 -->
+ </g>
+</svg> 

@@ -35,8 +35,6 @@ public class Enemy {
         
         this.health = 100;
         this.maxHealth = this.health;
-        
-        System.out.println("Enemy created with health: " + health + "/" + maxHealth + " type: " + type + " sprite: " + sprite);
     }
     
     public void update(float delta) {
@@ -52,7 +50,6 @@ public class Enemy {
             currentPoint++;
             if (currentPoint >= pathPoints.size) {
                 hasReachedEnd = true;
-                System.out.println("Enemy reached end point!");
             }
         }
         
@@ -64,10 +61,8 @@ public class Enemy {
     
     public void takeDamage(float damage) {
         this.health -= damage;
-        System.out.println("Enemy took " + damage + " damage. Health: " + health + "/" + maxHealth);
         if (health <= 0) {
             isDead = true;
-            System.out.println("Enemy died!");
         }
     }
     

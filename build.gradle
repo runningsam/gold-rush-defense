@@ -1,3 +1,5 @@
+apply plugin: 'groovy'
+
 buildscript {
   repositories {
     mavenCentral()
@@ -11,6 +13,12 @@ buildscript {
   dependencies {
     classpath "com.android.tools.build:gradle:8.5.2"
     classpath "com.badlogicgames.gdx:gdx-tools:1.12.0"
+    classpath "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+    classpath "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    classpath "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+    classpath "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    classpath "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-desktop"
+    classpath "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
   }
 }
 
@@ -58,7 +66,7 @@ configure(subprojects - project(':android')) {
 
 subprojects {
   version = "$projectVersion"
-  ext.appName = 'Crystal Defense'
+  ext.appName = 'Gold Rush Defense'
   repositories {
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }
@@ -71,7 +79,7 @@ subprojects {
   }
 }
 
-eclipse.project.name = 'Crystal Defense' + '-parent'
+eclipse.project.name = 'Gold Rush Defense' + '-parent'
 
 task convertSvgToPng {
     doLast {
@@ -122,6 +130,84 @@ task packTextures {
                 "assets/packed",
                 "${dir}.atlas"
             )
+        }
+    }
+}
+
+import com.badlogic.gdx.ApplicationAdapter
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
+import com.badlogic.gdx.files.FileHandle
+
+// 添加 fontGeneration 源集
+sourceSets {
+    fontGeneration {
+        groovy {
+            srcDirs = ['src/fontGeneration/groovy']
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+configurations {
+    fontGeneration
+}
+
+dependencies {
+    fontGenerationImplementation "org.codehaus.groovy:groovy-all:3.0.19"
+    fontGenerationImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    fontGenerationImplementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    fontGenerationImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    fontGenerationImplementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+    fontGenerationImplementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+    fontGenerationImplementation "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+}
+
+task generateFont {
+    dependsOn fontGenerationClasses
+    doLast {
+        if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+            project.exec {
+                commandLine "java", 
+                          "-XstartOnFirstThread",
+                          "-cp", (sourceSets.fontGeneration.runtimeClasspath as List).join(File.pathSeparator),
+                          "com.caystal.tools.FontGeneratorMain"
+            }
+        } else {
+            def config = new Lwjgl3ApplicationConfiguration()
+            config.setWindowedMode(1, 1)
+            config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 4)
+            
+            new Lwjgl3Application(new ApplicationAdapter() {
+                @Override
+                void create() {
+                    try {
+                        FreeTypeFontParameter param = new FreeTypeFontParameter()
+                        param.size = 32
+                        param.gamma = 2f
+                        param.shadowOffsetY = 1
+                        param.renderCount = 3
+                        param.shadowColor = new Color(0, 0, 0, 0.45f)
+                        param.characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+                        FileHandle fontFile = Gdx.files.internal("uiskin/Arial.ttf")
+                        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile)
+                        generator.generateFont(param).save(Gdx.files.local("assets/uiskin/default.fnt"))
+                        
+                        generator.dispose()
+                    } finally {
+                        Gdx.app.exit()
+                    }
+                }
+            }, config)
         }
     }
 }

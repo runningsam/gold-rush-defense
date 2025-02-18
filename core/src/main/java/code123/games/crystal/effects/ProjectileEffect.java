@@ -30,7 +30,6 @@ public class ProjectileEffect extends Effect {
         
         // 根据类型加载不同的精灵
         sprite = AssetManager.getInstance().createSprite("effects", type);
-        System.out.println("ProjectileEffect created: type=" + type + ", sprite=" + (sprite != null));
         
         if (sprite != null) {
             sprite.setOriginCenter();

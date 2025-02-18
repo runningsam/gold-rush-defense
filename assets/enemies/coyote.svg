@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" version="1.1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <!-- 郊狼的身体 - 浅褐色 -->
+  <path d="M6 20 L26 20 L24 12 L20 8 L12 8 L8 12 L6 20" fill="#D2B48C"/>
+  <!-- 郊狼的头部 - 深褐色 -->
+  <path d="M12 8 L20 8 L22 4 L18 2 L14 2 L10 4 L12 8" fill="#BC8F8F"/>
+  <!-- 郊狼的耳朵 - 尖锐 -->
+  <path d="M14 2 L16 0 L18 2" fill="#A0522D"/>
+  <!-- 郊狼的腿 - 细长 -->
+  <path d="M10 20 L8 28 L10 28 L12 20" fill="#D2B48C"/>
+  <path d="M20 20 L22 28 L24 28 L22 20" fill="#D2B48C"/>
+  <!-- 郊狼的尾巴 - 蓬松 -->
+  <path d="M24 16 L28 12 L30 14 L28 16 L24 16" fill="#D2B48C"/>
+ </g>
+</svg> 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" version="1.1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <!-- 土匪的身体 -->
+  <path d="M12 28 L20 28 L20 16 L12 16 Z" 
+        fill="#8B4513"/>
+  
+  <!-- 土匪的头部 -->
+  <circle cx="16" cy="12" r="6" 
+          fill="#DEB887"/>
+  
+  <!-- 土匪的帽子 -->
+  <path d="M10 12 L22 12 L20 8 L12 8 Z" 
+        fill="#8B4513"/>
+  
+  <!-- 土匪的面巾 -->
+  <rect x="13" y="14" width="6" height="2" 
+        fill="#A0522D"/>
+  
+  <!-- 土匪的眼睛 -->
+  <circle cx="14" cy="11" r="1" fill="#000000"/>
+  <circle cx="18" cy="11" r="1" fill="#000000"/>
+  
+  <!-- 土匪的武器（左手枪） -->
+  <rect x="8" y="18" width="4" height="2" 
+        fill="#000000"/>
+</g>
+</svg> 

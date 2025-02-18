@@ -35,7 +35,6 @@ public class ArrowTower extends Tower {
     @Override
     protected void attack(Enemy enemy) {
         if (enemy != null) {
-            System.out.println("ArrowTower attacking enemy");
             createAttackEffect(enemy);
             enemy.takeDamage(damage);
         }

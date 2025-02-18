@@ -6,8 +6,6 @@ import com.badlogic.gdx.utils.Array;
 import code123.games.crystal.AssetManager;
 import code123.games.crystal.effects.ProjectileEffect;
 import code123.games.crystal.GameWorld;
-import code123.games.crystal.entities.towers.ArrowTower;
-import code123.games.crystal.entities.towers.MagicTower;
 
 public abstract class Tower {
     protected Vector2 position;

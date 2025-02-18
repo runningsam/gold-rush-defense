@@ -40,7 +40,6 @@ public class MagicTower extends Tower {
     @Override
     protected void attack(Enemy enemy) {
         if (enemy != null) {
-            System.out.println("MagicTower attacking enemy");
             createMagicEffect(enemy);
             
             // 对主要目标造成全额伤害

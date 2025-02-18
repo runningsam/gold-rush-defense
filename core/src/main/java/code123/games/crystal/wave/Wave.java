@@ -1,6 +1,7 @@
 package code123.games.crystal.wave;
 
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.Gdx;
 
 public class Wave {
     private Array<WaveUnit> units;
@@ -22,12 +23,15 @@ public class Wave {
     }
     
     public boolean update(float delta) {
-        if (isCompleted) return true;
+        if (isCompleted) {
+            return false;
+        }
         
         timeSinceLastSpawn += delta;
         
         if (timeSinceLastSpawn >= spawnInterval) {
             timeSinceLastSpawn = 0;
+            Gdx.app.log("Wave", "Ready to spawn next enemy, interval: " + spawnInterval);
             return true;
         }
         
@@ -35,20 +39,26 @@ public class Wave {
     }
     
     public String getNextEnemyType() {
-        if (currentUnit >= units.size) return null;
+        if (isCompleted || currentUnit >= units.size) {
+            Gdx.app.log("Wave", "No more enemies to spawn, completed: " + isCompleted + 
+                       ", currentUnit: " + currentUnit + "/" + units.size);
+            return null;
+        }
         
         WaveUnit unit = units.get(currentUnit);
         unit.count--;
         
+        String enemyType = unit.enemyType;
+        
         if (unit.count <= 0) {
             currentUnit++;
+            if (currentUnit >= units.size) {
+                isCompleted = true;
+                Gdx.app.log("Wave", "Wave completed, all units spawned");
+            }
         }
         
-        if (currentUnit >= units.size) {
-            isCompleted = true;
-        }
-        
-        return unit.enemyType;
+        return enemyType;
     }
     
     public boolean isCompleted() {

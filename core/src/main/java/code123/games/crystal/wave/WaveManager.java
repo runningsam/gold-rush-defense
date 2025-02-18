@@ -3,6 +3,9 @@ package code123.games.crystal.wave;
 import com.badlogic.gdx.utils.Array;
 import code123.games.crystal.entities.Enemy;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.JsonValue;
+import code123.games.crystal.story.StoryManager;
+import com.badlogic.gdx.Gdx;
 
 public class WaveManager {
     private Array<Wave> waves;
@@ -10,9 +13,9 @@ public class WaveManager {
     private Wave activeWave;
     private Array<Vector2> pathPoints;
     private boolean isCompleted;
-    private float waveBreakTimer;  // 波次间隔计时器
-    private static final float WAVE_BREAK_DURATION = 10f;  // 波次间隔时间（秒）
-    private boolean isBreak;  // 是否在休息阶段
+    private float waveBreakTimer;
+    private float waveBreakDuration;  // 从配置中读取的波次间隔时间
+    private boolean isBreak;
     
     public WaveManager(Array<Vector2> pathPoints) {
         this.waves = new Array<>();
@@ -22,27 +25,28 @@ public class WaveManager {
         this.isBreak = false;
         this.waveBreakTimer = 0;
         
+        // 从 StoryManager 获取波次间隔时间
+        this.waveBreakDuration = StoryManager.getInstance().getWaveBreakDuration();
+        
         // 初始化波次
         initializeWaves();
         activeWave = waves.get(0);
     }
     
     private void initializeWaves() {
-        // 第一波：5个普通怪物
-        Wave wave1 = new Wave(2.0f);
-        wave1.addUnit("normal", 5);
-        waves.add(wave1);
+        JsonValue wavesConfig = StoryManager.getInstance().getWavesConfig();
         
-        // 第二波：8个普通怪物
-        Wave wave2 = new Wave(1.5f);
-        wave2.addUnit("normal", 8);
-        waves.add(wave2);
-        
-        // 第三波：10个普通怪物和2个精英怪物
-        Wave wave3 = new Wave(1.0f);
-        wave3.addUnit("normal", 10);
-        wave3.addUnit("elite", 2);
-        waves.add(wave3);
+        for (JsonValue waveData : wavesConfig) {
+            Wave wave = new Wave(waveData.getFloat("spawnInterval"));
+            
+            for (JsonValue enemyData : waveData.get("enemies")) {
+                wave.addUnit(
+                    enemyData.getString("type"),
+                    enemyData.getInt("count")
+                );
+            }
+            waves.add(wave);
+        }
     }
     
     public Enemy update(float delta) {
@@ -52,11 +56,14 @@ public class WaveManager {
             waveBreakTimer -= delta;
             if (waveBreakTimer <= 0) {
                 isBreak = false;
-                currentWave++;
-                if (currentWave < waves.size) {
+                if (currentWave + 1 < waves.size) {
+                    currentWave++;
                     activeWave = waves.get(currentWave);
+                    Gdx.app.log("WaveManager", "Switching to next wave: " + (currentWave + 1) + 
+                               "/" + waves.size);
                 } else {
                     isCompleted = true;
+                    Gdx.app.log("WaveManager", "All waves completed");
                 }
             }
             return null;
@@ -65,35 +72,37 @@ public class WaveManager {
         if (activeWave.update(delta)) {
             String enemyType = activeWave.getNextEnemyType();
             if (enemyType != null) {
+                Gdx.app.log("WaveManager", "Spawning enemy: " + enemyType + 
+                           " in wave " + (currentWave + 1) + "/" + waves.size);
                 return createEnemy(enemyType);
-            } else if (activeWave.isCompleted()) {
-                isBreak = true;
-                waveBreakTimer = WAVE_BREAK_DURATION;
             }
         }
-        
+        if (activeWave.isCompleted()) {
+            Gdx.app.log("WaveManager", "Current wave " + (currentWave + 1) + 
+                       " completed, hasNextWave: " + (currentWave + 1 < waves.size));
+            if (currentWave + 1 < waves.size) {
+                isBreak = true;
+                waveBreakTimer = waveBreakDuration;
+                Gdx.app.log("WaveManager", "Starting break timer: " + waveBreakDuration + 
+                           ", current wave: " + (currentWave + 1));
+            } else {
+                isCompleted = true;
+                Gdx.app.log("WaveManager", "All waves completed");
+            }
+            return null;
+        }
+
         return null;
     }
     
     private Enemy createEnemy(String type) {
-        String textureKey = "basic";
-        if (type.equals("elite")) {
-            textureKey = "elite";
-        }
+        JsonValue enemyConfig = StoryManager.getInstance().getEnemyConfig(type);
         
-        Enemy enemy = new Enemy(textureKey, pathPoints);
-        switch (type) {
-            case "normal":
-                enemy.setHealth(100f);
-                enemy.setSpeed(100f);
-                enemy.setReward(10);
-                break;
-            case "elite":
-                enemy.setHealth(200f);
-                enemy.setSpeed(80f);
-                enemy.setReward(20);
-                break;
-        }
+        Enemy enemy = new Enemy(type, pathPoints);
+        enemy.setHealth(enemyConfig.getFloat("health"));
+        enemy.setSpeed(enemyConfig.getFloat("speed"));
+        enemy.setReward(enemyConfig.getInt("reward"));
+        
         return enemy;
     }
     
@@ -110,7 +119,11 @@ public class WaveManager {
     }
     
     public int getCurrentWave() {
-        return currentWave + 1;  // 转换为1-based索引
+        // 如果已完成，返回最后一波的索引
+        if (isCompleted) {
+            return waves.size;
+        }
+        return Math.min(currentWave + 1, waves.size);  // 确保不会超过总波数
     }
     
     public int getTotalWaves() {

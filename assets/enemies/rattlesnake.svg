@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" version="1.1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <!-- 响尾蛇的身体 - S形 -->
+  <path d="M8 16 Q12 12 16 16 Q20 20 24 16" 
+        fill="none" 
+        stroke="#B8860B" 
+        stroke-width="4" 
+        stroke-linecap="round"/>
+  
+  <!-- 响尾蛇的头部 -->
+  <path d="M6 16 L10 14 L10 18 Z" 
+        fill="#8B4513"/>
+  
+  <!-- 响尾蛇的尾巴（响尾） -->
+  <circle cx="24" cy="16" r="2" fill="#DAA520"/>
+  <circle cx="26" cy="16" r="2" fill="#DAA520"/>
+  <circle cx="28" cy="16" r="2" fill="#DAA520"/>
+  
+  <!-- 蛇的眼睛 -->
+  <circle cx="8" cy="15" r="1" fill="#000000"/>
+  <circle cx="8" cy="17" r="1" fill="#000000"/>
+</g>
+</svg> 

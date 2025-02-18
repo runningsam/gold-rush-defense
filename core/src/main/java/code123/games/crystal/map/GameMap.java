@@ -55,12 +55,11 @@ public class GameMap {
                 Integer.compare(o1.getProperties().get("id", Integer.class),
                               o2.getProperties().get("id", Integer.class)));
             
+            // 移除对路径点数量的限制，加载所有路径点
             for (MapObject obj : sortedObjects) {
-                if (obj.getProperties().get("id", Integer.class) <= 8) {
-                    float x = obj.getProperties().get("x", Float.class) + tileSize/2;
-                    float y = obj.getProperties().get("y", Float.class) - tileSize/2;  // 只需要减去半个瓦片大小
-                    pathPoints.add(new Vector2(x, y));
-                }
+                float x = obj.getProperties().get("x", Float.class) + tileSize/2;
+                float y = obj.getProperties().get("y", Float.class) - tileSize/2;
+                pathPoints.add(new Vector2(x, y));
             }
         }
     }
@@ -73,13 +72,27 @@ public class GameMap {
     }
     
     public boolean canBuildTowerAt(float x, float y) {
+        // 1. 首先检查是否在路径层上
+        TiledMapTileLayer pathLayer = (TiledMapTileLayer) map.getLayers().get("path");
+        if (pathLayer != null) {
+            int tileX = (int) (x / tileSize);
+            int tileY = (int) (y / tileSize);
+            TiledMapTileLayer.Cell pathCell = pathLayer.getCell(tileX, tileY);
+            if (pathCell != null) {
+                return false;  // 如果是路径，直接返回false
+            }
+        }
+        
+        // 2. 然后检查背景层是否可建造
         TiledMapTileLayer buildLayer = (TiledMapTileLayer) map.getLayers().get("background");
         if (buildLayer != null) {
             int tileX = (int) (x / tileSize);
             int tileY = (int) (y / tileSize);
             
             TiledMapTileLayer.Cell cell = buildLayer.getCell(tileX, tileY);
-            return cell != null && cell.getTile().getProperties().containsKey("buildable");
+            if (cell != null) {
+                return cell.getTile().getProperties().containsKey("buildable");
+            }
         }
         return false;
     }

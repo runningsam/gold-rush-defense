@@ -12,10 +12,10 @@ public class Main extends Game {
         batch = new SpriteBatch();
         assets = AssetManager.getInstance();
         
-        // 确保资源加载完成
+        // Make sure assets are loaded
         assets.loadAssets();
         
-        setScreen(new GameScreen(this));
+        setScreen(new IntroScreen(this));
     }
     
     @Override

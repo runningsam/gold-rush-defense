@@ -1,10 +1,31 @@
 
 enemies.png
-size: 128, 64
+size: 128, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+bandit
+  rotate: false
+  xy: 2, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 basic
+  rotate: false
+  xy: 2, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+bear
+  rotate: false
+  xy: 36, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+coyote
   rotate: false
   xy: 2, 2
   size: 32, 32
@@ -13,7 +34,35 @@ basic
   index: -1
 elite
   rotate: false
+  xy: 36, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+mountain_lion
+  rotate: false
+  xy: 70, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+outlaw
+  rotate: false
   xy: 36, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+rattlesnake
+  rotate: false
+  xy: 70, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+wolf
+  rotate: false
+  xy: 70, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

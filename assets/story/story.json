@@ -1,0 +1,510 @@
+{
+  "gameIntro": {
+    "en": {
+      "title": "Gold Rush Defense",
+      "story": [
+        "1849, The California Gold Rush is in full swing.",
+        "As a brave pioneer, you've embarked on a perilous journey west,",
+        "seeking fortune in the untamed frontier.",
+        "",
+        "But the path to riches is fraught with danger -",
+        "from wild beasts to desperate outlaws.",
+        "Build your defenses, protect your camp,",
+        "and survive the challenges of the Wild West!"
+      ]
+    },
+    "zh": {
+      "title": "淘金热防御",
+      "story": [
+        "1849年，加利福尼亚淘金热正如火如荼。",
+        "作为一名勇敢的拓荒者，你踏上了西进的危险旅程，",
+        "在这片未开化的边疆寻找财富。",
+        "",
+        "但是通往富贵的道路充满了危险 -",
+        "从野兽到亡命之徒。",
+        "建立你的防御工事，保护你的营地，",
+        "在这狂野西部中生存下去！"
+      ]
+    }
+  },
+  "levels": [
+    {
+      "id": "level1",
+      "map": "maps/level1.tmx",
+      "initialGold": 250,
+      "initialLives": 15,
+      "translations": {
+        "en": {
+          "title": "The Western Frontier",
+          "intro": {
+            "title": "1849, California Gold Rush",
+            "content": [
+              "After a long journey west, you've finally found a place to set up camp.",
+              "But as night falls, wild beasts begin to emerge from the darkness...",
+              "Protect your supplies and survive until dawn!"
+            ]
+          },
+          "victory": {
+            "title": "Victory!",
+            "content": [
+              "You've successfully survived the night!",
+              "Your supplies are safe, and you can continue your journey west."
+            ]
+          },
+          "defeat": {
+            "title": "Game Over",
+            "content": [
+              "The wild beasts have overrun your camp.",
+              "Your supplies are lost in the wilderness..."
+            ]
+          }
+        },
+        "zh": {
+          "title": "西部边疆",
+          "intro": {
+            "title": "1849年，加利福尼亚淘金热",
+            "content": [
+              "经过漫长的西行旅程，你终于找到了一个可以扎营的地方。",
+              "但随着夜幕降临，野兽们开始从黑暗中出现...",
+              "保护好你的补给，活到黎明！"
+            ]
+          },
+          "victory": {
+            "title": "胜利！",
+            "content": [
+              "你成功地度过了这个夜晚！",
+              "你的补给安然无恙，可以继续西进的旅程了。"
+            ]
+          },
+          "defeat": {
+            "title": "游戏结束",
+            "content": [
+              "野兽们占领了你的营地。",
+              "你的补给都遗失在了荒野之中..."
+            ]
+          }
+        }
+      },
+      "waveBreakDuration": 5.0,
+      "waves": [
+        {
+          "spawnInterval": 2.5,
+          "enemies": [
+            {
+              "type": "coyote",
+              "count": 5,
+              "health": 100,
+              "speed": 95,
+              "reward": 10
+            }
+          ]
+        },
+        {
+          "spawnInterval": 2.0,
+          "enemies": [
+            {
+              "type": "coyote",
+              "count": 7,
+              "health": 120,
+              "speed": 100,
+              "reward": 12
+            }
+          ]
+        },
+        {
+          "spawnInterval": 1.8,
+          "enemies": [
+            {
+              "type": "coyote",
+              "count": 10,
+              "health": 140,
+              "speed": 105,
+              "reward": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level2",
+      "map": "maps/level2.tmx",
+      "initialGold": 300,
+      "initialLives": 15,
+      "translations": {
+        "en": {
+          "title": "Mountain Pass",
+          "intro": {
+            "title": "The High Sierra",
+            "content": [
+              "Your journey takes you through treacherous mountain passes.",
+              "As a storm approaches, mountain lions and bears descend from their caves...",
+              "Defend your position until the storm passes!"
+            ]
+          },
+          "victory": {
+            "title": "Victory!",
+            "content": [
+              "You've weathered the storm!",
+              "The path ahead leads down to greener valleys."
+            ]
+          },
+          "defeat": {
+            "title": "Game Over",
+            "content": [
+              "The mountain predators were too fierce.",
+              "Your camp lies in ruins among the peaks..."
+            ]
+          }
+        },
+        "zh": {
+          "title": "山间小径",
+          "intro": {
+            "title": "高山峻岭",
+            "content": [
+              "你的旅程带你穿过危险的山口。",
+              "随着暴风雨的临近，美洲狮和熊从洞穴中走出...",
+              "坚守阵地直到暴风雨过去！"
+            ]
+          },
+          "victory": {
+            "title": "胜利！",
+            "content": [
+              "你挺过了这场风暴！",
+              "前方的路通向更加翠绿的山谷。"
+            ]
+          },
+          "defeat": {
+            "title": "游戏结束",
+            "content": [
+              "山中的掠食者太过凶猛。",
+              "你的营地在群山之间化为废墟..."
+            ]
+          }
+        }
+      },
+      "waveBreakDuration": 5.0,
+      "waves": [
+        {
+          "spawnInterval": 2.0,
+          "enemies": [
+            {
+              "type": "wolf",
+              "count": 6,
+              "health": 140,
+              "speed": 95,
+              "reward": 12
+            }
+          ]
+        },
+        {
+          "spawnInterval": 1.8,
+          "enemies": [
+            {
+              "type": "wolf",
+              "count": 8,
+              "health": 160,
+              "speed": 100,
+              "reward": 15
+            }
+          ]
+        },
+        {
+          "spawnInterval": 1.5,
+          "enemies": [
+            {
+              "type": "wolf",
+              "count": 10,
+              "health": 180,
+              "speed": 105,
+              "reward": 18
+            }
+          ]
+        },
+        {
+          "spawnInterval": 1.2,
+          "enemies": [
+            {
+              "type": "wolf",
+              "count": 12,
+              "health": 200,
+              "speed": 110,
+              "reward": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level3",
+      "map": "maps/level3.tmx",
+      "initialGold": 350,
+      "initialLives": 15,
+      "translations": {
+        "en": {
+          "title": "Desert Canyon",
+          "intro": {
+            "title": "The Mojave Trial",
+            "content": [
+              "The scorching desert sun has given way to a cold night.",
+              "Hungry coyotes and rattlesnakes are drawn to your campfire...",
+              "Hold your ground until sunrise!"
+            ]
+          },
+          "victory": {
+            "title": "Victory!",
+            "content": [
+              "Another night conquered in the merciless desert!",
+              "The morning light reveals the path to the gold fields ahead."
+            ]
+          },
+          "defeat": {
+            "title": "Game Over",
+            "content": [
+              "The desert's creatures proved too numerous.",
+              "Your journey ends in the endless sands..."
+            ]
+          }
+        },
+        "zh": {
+          "title": "沙漠峡谷",
+          "intro": {
+            "title": "莫哈维的考验",
+            "content": [
+              "炽热的沙漠太阳已经让位给寒冷的夜晚。",
+              "饥饿的郊狼和响尾蛇被你的营火所吸引...",
+              "坚守阵地直到日出！"
+            ]
+          },
+          "victory": {
+            "title": "胜利！",
+            "content": [
+              "在这无情的沙漠中又征服了一个夜晚！",
+              "晨光照亮了通往金矿的道路。"
+            ]
+          },
+          "defeat": {
+            "title": "游戏结束",
+            "content": [
+              "沙漠中的生物数量太多了。",
+              "你的旅程止步于无尽的黄沙之中..."
+            ]
+          }
+        }
+      },
+      "waveBreakDuration": 5.0,
+      "waves": [
+        {
+          "spawnInterval": 1.8,
+          "enemies": [
+            {
+              "type": "rattlesnake",
+              "count": 8,
+              "health": 90,
+              "speed": 125,
+              "reward": 10
+            }
+          ]
+        },
+        {
+          "spawnInterval": 1.5,
+          "enemies": [
+            {
+              "type": "coyote",
+              "count": 6,
+              "health": 160,
+              "speed": 105,
+              "reward": 15
+            },
+            {
+              "type": "rattlesnake",
+              "count": 6,
+              "health": 100,
+              "speed": 130,
+              "reward": 12
+            }
+          ]
+        },
+        {
+          "spawnInterval": 1.2,
+          "enemies": [
+            {
+              "type": "rattlesnake",
+              "count": 10,
+              "health": 120,
+              "speed": 135,
+              "reward": 15
+            },
+            {
+              "type": "coyote",
+              "count": 8,
+              "health": 180,
+              "speed": 110,
+              "reward": 18
+            }
+          ]
+        },
+        {
+          "spawnInterval": 1.0,
+          "enemies": [
+            {
+              "type": "coyote",
+              "count": 10,
+              "health": 200,
+              "speed": 115,
+              "reward": 20
+            },
+            {
+              "type": "rattlesnake",
+              "count": 12,
+              "health": 140,
+              "speed": 140,
+              "reward": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level4",
+      "map": "maps/level4.tmx",
+      "initialGold": 400,
+      "initialLives": 15,
+      "translations": {
+        "en": {
+          "title": "Gold Creek",
+          "intro": {
+            "title": "The Final Stand",
+            "content": [
+              "You've finally reached the legendary gold fields!",
+              "But news of your discovery has attracted desperate bandits...",
+              "Defend your claim through the night!"
+            ]
+          },
+          "victory": {
+            "title": "Victory!",
+            "content": [
+              "Your defenses held strong against all odds!",
+              "The gold claim is yours, and fortune awaits!"
+            ]
+          },
+          "defeat": {
+            "title": "Game Over",
+            "content": [
+              "The bandits overwhelmed your defenses.",
+              "Your dream of striking it rich fades away..."
+            ]
+          }
+        },
+        "zh": {
+          "title": "淘金溪",
+          "intro": {
+            "title": "最后的抵抗",
+            "content": [
+              "你终于到达了传说中的金矿！",
+              "但是你的发现也吸引了一群亡命之徒...",
+              "守住你的金矿，度过这个夜晚！"
+            ]
+          },
+          "victory": {
+            "title": "胜利！",
+            "content": [
+              "你的防御在重重困难中坚持住了！",
+              "金矿是你的了，财富在向你招手！"
+            ]
+          },
+          "defeat": {
+            "title": "游戏结束",
+            "content": [
+              "土匪突破了你的防线。",
+              "发财致富的梦想就此破灭..."
+            ]
+          }
+        }
+      },
+      "waveBreakDuration": 5.0,
+      "waves": [
+        {
+          "spawnInterval": 1.8,
+          "enemies": [
+            {
+              "type": "bandit",
+              "count": 8,
+              "health": 180,
+              "speed": 95,
+              "reward": 15
+            }
+          ]
+        },
+        {
+          "spawnInterval": 1.5,
+          "enemies": [
+            {
+              "type": "bandit",
+              "count": 10,
+              "health": 200,
+              "speed": 100,
+              "reward": 18
+            },
+            {
+              "type": "outlaw",
+              "count": 4,
+              "health": 300,
+              "speed": 85,
+              "reward": 25
+            }
+          ]
+        },
+        {
+          "spawnInterval": 1.2,
+          "enemies": [
+            {
+              "type": "bandit",
+              "count": 12,
+              "health": 220,
+              "speed": 105,
+              "reward": 20
+            },
+            {
+              "type": "outlaw",
+              "count": 6,
+              "health": 350,
+              "speed": 90,
+              "reward": 30
+            }
+          ]
+        },
+        {
+          "spawnInterval": 1.0,
+          "enemies": [
+            {
+              "type": "bandit",
+              "count": 15,
+              "health": 240,
+              "speed": 110,
+              "reward": 22
+            },
+            {
+              "type": "outlaw",
+              "count": 8,
+              "health": 400,
+              "speed": 95,
+              "reward": 35
+            }
+          ]
+        },
+        {
+          "spawnInterval": 0.8,
+          "enemies": [
+            {
+              "type": "outlaw",
+              "count": 12,
+              "health": 450,
+              "speed": 100,
+              "reward": 40
+            }
+          ]
+        }
+      ]
+    }
+  ]
+} 
