@@ -1,0 +1,14 @@
+{
+  "buildCommand": "chmod +x ./gradlew && export JAVA_HOME=/usr/lib/jvm/java-17 && ./gradlew clean teavm:build",
+  "installCommand": "chmod +x ./gradlew && export JAVA_HOME=/usr/lib/jvm/java-17 && ./gradlew wrapper",
+  "builds": [
+    {
+      "src": "build.sh",
+      "use": "@vercel/static-build"
+    }
+  ],
+  "env": {
+    "JAVA_HOME": "/usr/lib/jvm/java-17",
+    "GRADLE_OPTS": "-Dorg.gradle.java.home=/usr/lib/jvm/java-17"
+  }
+} 
