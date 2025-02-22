@@ -1,9 +1,9 @@
 package code123.games.crystal.teavm;
 
+import com.badlogic.gdx.Files.FileType;
 import com.github.xpenatan.gdx.backends.teavm.config.AssetFileHandle;
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuildConfiguration;
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuilder;
-import com.github.xpenatan.gdx.backends.teavm.config.plugins.TeaReflectionSupplier;
 import com.github.xpenatan.gdx.backends.teavm.gen.SkipClass;
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,19 @@ import org.teavm.vm.TeaVMOptimizationLevel;
 public class TeaVMBuilder {
     public static void main(String[] args) throws IOException {
         TeaBuildConfiguration teaBuildConfiguration = new TeaBuildConfiguration();
-        teaBuildConfiguration.assetsPath.add(new AssetFileHandle("../assets"));
+        teaBuildConfiguration.assetsPath
+            .add(AssetFileHandle.createCopyHandle("../assets/packed/", FileType.Absolute, "packed/")) ;
+        teaBuildConfiguration.assetsPath
+            .add(AssetFileHandle.createCopyHandle("../assets/uiskin/", FileType.Absolute, "uiskin/")) ;
+            teaBuildConfiguration.assetsPath
+            .add(AssetFileHandle.createCopyHandle("../assets/story/", FileType.Absolute, "story/")) ;
+        teaBuildConfiguration.assetsPath
+            .add(AssetFileHandle.createCopyHandle("../assets/maps/", FileType.Absolute, "maps/")) ;
+        teaBuildConfiguration.assetsPath
+            .add(AssetFileHandle.createCopyHandle("../assets/sounds/", FileType.Absolute, "sounds/")) ;
+        teaBuildConfiguration.assetsPath
+            .add(AssetFileHandle.createCopyHandle("../assets/music/", FileType.Absolute, "music/")) ;
+     
         teaBuildConfiguration.webappPath = new File("build/dist").getCanonicalPath();
 
         // Register any extra classpath assets here:
