@@ -109,4 +109,8 @@ public class GameMap {
             renderer.dispose();
         }
     }
+
+    public TiledMap getMap() {
+        return map;
+    }
 } 

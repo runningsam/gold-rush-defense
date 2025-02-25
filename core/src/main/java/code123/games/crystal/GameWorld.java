@@ -14,6 +14,7 @@ import code123.games.crystal.story.StoryManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class GameWorld {
     private static GameWorld instance;
@@ -363,5 +364,15 @@ public class GameWorld {
         public void handleGameFinished() {
             gameState = GameState.FINISHED;
             eventManager.emit("gameFinished");
+        }
+
+        public TiledMapTileLayer.Cell getBackgroundCell(float x, float y) {
+            TiledMapTileLayer backgroundLayer = (TiledMapTileLayer) gameMap.getMap().getLayers().get("background");
+            if (backgroundLayer != null) {
+                int tileX = (int) (x / 32);
+                int tileY = (int) (y / 32);
+                return backgroundLayer.getCell(tileX, tileY);
+            }
+            return null;
         }
 }

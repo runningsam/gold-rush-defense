@@ -17,6 +17,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import code123.games.crystal.ui.GameDialogs;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class GameScreen implements Screen {
     private final Main game;
@@ -224,10 +225,24 @@ public class GameScreen implements Screen {
     private void renderHoverTower() {
         // 渲染悬浮格子
         if (selectedTowerType != null && hoverCell.x >= 0 && hoverCell.y >= 0) {
+            // 先绘制发光效果
+            Sprite glowSprite = AssetManager.getInstance().createSprite("effects", "glow");
+            if (glowSprite != null) {
+                glowSprite.setPosition(hoverCell.x, hoverCell.y);
+                // 根据是否可以放置设置颜色
+                if (gameWorld.canPlaceTowerAt(new Vector2(hoverCell.x, hoverCell.y))) {
+                    glowSprite.setColor(0, 1, 0, 0.5f); // 绿色发光
+                } else {
+                    glowSprite.setColor(1, 0, 0, 0.5f); // 红色发光
+                }
+                glowSprite.draw(game.batch);
+            }
+
+            // 再绘制塔的预览
             Sprite towerSprite = AssetManager.getInstance().createTowerSprite(selectedTowerType);
             if (towerSprite != null) {
                 towerSprite.setPosition(hoverCell.x, hoverCell.y);
-                towerSprite.setAlpha(0.5f);
+                towerSprite.setAlpha(0.7f);
                 towerSprite.draw(game.batch);
             }
         }
@@ -258,11 +273,11 @@ public class GameScreen implements Screen {
                 System.out.println("GameScreen touchDown: " + screenX + ", " + screenY);
                 // 只处理塔的建造逻辑
                 if (selectedTowerType != null) {
-                    Vector3 worldCoords = camera.unproject(new Vector3(screenX, screenY, 0));
+                    Vector3 worldCoords = viewport.unproject(new Vector3(screenX, screenY, 0));
                     float x = (float) Math.floor(worldCoords.x / 32) * 32;
                     float y = (float) Math.floor(worldCoords.y / 32) * 32;
                     Vector2 buildPosition = new Vector2(x, y);
-                    
+                    Gdx.app.log("GameScreen", "buildPosition: " + buildPosition +" hoverCell: " + hoverCell);
                     if (gameWorld.canPlaceTowerAt(buildPosition)) {
                         if (gameWorld.buildTower(selectedTowerType, buildPosition)) {
                             selectedTowerType = null;
