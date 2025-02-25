@@ -36,7 +36,17 @@ tasks.register('buildJavaScript', JavaExec) {
   setDescription("Transpile bytecode to JavaScript via TeaVM")
   mainClass.set(project.mainClassName)
   setClasspath(sourceSets.main.runtimeClasspath)
+  doLast {
+    println "copyHtml done"
+    // copy index.html to build/dist/webapp
+    copy {
+      from 'src/main/resources'
+      into 'build/dist/webapp'
+      include 'index.html'
+    }
+  }
 }
+
 build.dependsOn buildJavaScript
 
 tasks.register("run") {
