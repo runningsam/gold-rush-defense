@@ -45,7 +45,6 @@ public class BuildToolbar {
     }
 
     private void createToolbar() {
-
         // 从纹理图集中获取9patch区域
         TextureAtlas atlas = AssetManager.getInstance().getAtlas("ui");
         TextureAtlas.AtlasRegion region = atlas.findRegion("toolbar_9patch");
@@ -77,14 +76,25 @@ public class BuildToolbar {
         float buttonSize = 32;  // 按钮尺寸
         float padding = 16;    // 按钮间距
         
+        // 获取按钮背景
+        TextureAtlas.AtlasRegion buttonRegion = atlas.findRegion("button_background");  // 暂时复用这个背景
+        NinePatch buttonPatch = new NinePatch(buttonRegion, 4, 4, 4, 4);
+        NinePatchDrawable buttonBackground = new NinePatchDrawable(buttonPatch);
+        
         // 箭塔按钮
         ImageButton arrowButton = new ImageButton(new TextureRegionDrawable(arrowTowerIcon));
         // 箭塔按钮
-        toolbarTable.add(arrowButton).size(buttonSize).pad(0).padRight(padding).center();
+        Table arrowTable = new Table();
+        arrowTable.setBackground(buttonBackground);
+        arrowTable.add(arrowButton).size(buttonSize).pad(0).center();
+        toolbarTable.add(arrowTable).padRight(4);
         
         // 魔法塔按钮
         ImageButton magicButton = new ImageButton(new TextureRegionDrawable(magicTowerIcon));
-        toolbarTable.add(magicButton).size(buttonSize).pad(0).center();
+        Table magicTable = new Table();
+        magicTable.setBackground(buttonBackground);
+        magicTable.add(magicButton).size(buttonSize).pad(0).center();
+        toolbarTable.add(magicTable);
         
         // 设置位置并调整大小
         mainTable.pack();

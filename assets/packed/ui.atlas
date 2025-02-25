@@ -4,37 +4,44 @@ size: 512, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+button_background
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 dialog_background
   rotate: false
-  xy: 324, 2
+  xy: 324, 16
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 gold_icon
   rotate: false
-  xy: 2, 4
+  xy: 426, 50
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 health_icon
   rotate: false
-  xy: 426, 36
+  xy: 492, 100
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 toolbar_9patch
   rotate: false
-  xy: 426, 54
+  xy: 426, 68
   size: 64, 48
   orig: 64, 48
   offset: 0, 0
   index: -1
 toolbar_frame
   rotate: false
-  xy: 2, 22
+  xy: 2, 36
   size: 320, 80
   orig: 320, 80
   offset: 0, 0
