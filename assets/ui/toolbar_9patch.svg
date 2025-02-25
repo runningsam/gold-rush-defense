@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="48" version="1.1" viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="frameGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8d5b0"/>
+      <stop offset="100%" style="stop-color:#d4c298"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 9-patch 标记区域 (1px黑色条) -->
+  <rect x="24" y="0" width="16" height="1" fill="#000000"/>  <!-- 顶部拉伸区 -->
+  <rect x="0" y="16" width="1" height="16" fill="#000000"/>  <!-- 左侧拉伸区 -->
+  <rect x="24" y="47" width="16" height="1" fill="#000000"/> <!-- 底部拉伸区 -->
+  <rect x="63" y="16" width="1" height="16" fill="#000000"/> <!-- 右侧拉伸区 -->
+  
+  <!-- 主背景 -->
+  <g transform="translate(1,1)">
+    <!-- 边框和背景 -->
+    <rect x="0" y="0" width="62" height="46" rx="6" 
+          fill="url(#frameGradient)" stroke="#654321" stroke-width="2"/>
+    
+    <!-- 内边框装饰 -->
+    <rect x="3" y="3" width="56" height="40" rx="4" 
+          fill="none" stroke="#8b7355" stroke-width="1"/>
+    
+    <!-- 角落装饰 -->
+    <path d="M 3,12 L 3,3 L 12,3" 
+          fill="none" stroke="#8b7355" stroke-width="2"/>
+    <path d="M 50,3 L 59,3 L 59,12" 
+          fill="none" stroke="#8b7355" stroke-width="2"/>
+    <path d="M 3,34 L 3,43 L 12,43" 
+          fill="none" stroke="#8b7355" stroke-width="2"/>
+    <path d="M 50,43 L 59,43 L 59,34" 
+          fill="none" stroke="#8b7355" stroke-width="2"/>
+  </g>
+</svg> 

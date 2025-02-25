@@ -55,8 +55,6 @@ public class GameHUD {
         Image goldIcon = new Image(skin.getDrawable("gold_icon"));
         Label.LabelStyle hudLabelStyle = skin.get("hud-small", Label.LabelStyle.class);
         hudLabelStyle.font.getData().setScale(0.5f);
-        Gdx.app.log("GameHUD", "hudLabelStyle: " + hudLabelStyle);
-        Gdx.app.log("GameHUD", "Font scale: " + hudLabelStyle.font.getData().scaleX);
         
         goldLabel = new Label("0", hudLabelStyle);
         Image healthIcon = new Image(skin.getDrawable("health_icon"));
