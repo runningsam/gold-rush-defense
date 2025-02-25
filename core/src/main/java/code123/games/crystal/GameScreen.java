@@ -223,23 +223,21 @@ public class GameScreen implements Screen {
     }
 
     private void renderHoverTower() {
-        // 渲染悬浮格子
         if (selectedTowerType != null && hoverCell.x >= 0 && hoverCell.y >= 0) {
-            // 先绘制发光效果
-            Sprite glowSprite = AssetManager.getInstance().createSprite("effects", "glow");
+            // 使用 AssetManager 中的发光精灵
+            Sprite glowSprite = AssetManager.getInstance().getGlowSprite();
             if (glowSprite != null) {
                 glowSprite.setPosition(hoverCell.x, hoverCell.y);
-                // 根据是否可以放置设置颜色
                 if (gameWorld.canPlaceTowerAt(new Vector2(hoverCell.x, hoverCell.y))) {
-                    glowSprite.setColor(0, 1, 0, 0.5f); // 绿色发光
+                    glowSprite.setColor(0, 1, 0, 0.5f);
                 } else {
-                    glowSprite.setColor(1, 0, 0, 0.5f); // 红色发光
+                    glowSprite.setColor(1, 0, 0, 0.5f);
                 }
                 glowSprite.draw(game.batch);
             }
 
-            // 再绘制塔的预览
-            Sprite towerSprite = AssetManager.getInstance().createTowerSprite(selectedTowerType);
+            // 使用 AssetManager 中的预览精灵
+            Sprite towerSprite = AssetManager.getInstance().getTowerPreviewSprite(selectedTowerType);
             if (towerSprite != null) {
                 towerSprite.setPosition(hoverCell.x, hoverCell.y);
                 towerSprite.setAlpha(0.7f);

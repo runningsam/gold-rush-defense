@@ -9,6 +9,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
+import java.util.Map;
 
 public class AssetManager implements Disposable {
     private static AssetManager instance;
@@ -16,6 +17,8 @@ public class AssetManager implements Disposable {
     private Texture pixelTexture;
     private BitmapFont uiFont;
     private Skin uiSkin;
+    private Map<String, Sprite> towerPreviewSprites = new HashMap<>();
+    private Sprite glowSprite;
 
     private AssetManager() {
         atlases = new HashMap<>();
@@ -43,6 +46,14 @@ public class AssetManager implements Disposable {
         pixmap.dispose();
         // 加载UI皮肤
         loadUISkin();
+
+        // 加载发光效果
+        glowSprite = createSprite("effects", "glow");
+        
+        // 预先创建所有塔的预览精灵
+        towerPreviewSprites.put("arrow", createTowerSprite("arrow"));
+        towerPreviewSprites.put("magic", createTowerSprite("magic"));
+        // 添加其他类型的塔...
     }
 
     private void loadUISkin() {
@@ -113,6 +124,14 @@ public class AssetManager implements Disposable {
 
     public TextureAtlas getAtlas(String name) {
         return atlases.get(name);
+    }
+
+    public Sprite getTowerPreviewSprite(String type) {
+        return towerPreviewSprites.get(type);
+    }
+
+    public Sprite getGlowSprite() {
+        return glowSprite;
     }
 
     @Override
