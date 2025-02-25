@@ -236,7 +236,7 @@ public class GameDialogs {
         Dialog dialog = new Dialog("", skin) {
             {
                 setBackground(dialogBackground);
-                getTitleTable().add(new Label(title, skin)).pad(20).center();
+                getTitleTable().add(new Label(title, skin)).pad(20).expandX().fillX().center();
             }
         };
 
