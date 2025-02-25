@@ -2,18 +2,21 @@
   "com.badlogic.gdx.graphics.Color": {
     "white": { "r": 1, "g": 1, "b": 1, "a": 1 },
     "black": { "r": 0, "g": 0, "b": 0, "a": 1 },
-    "red": { "r": 1, "g": 0, "b": 0, "a": 1 }
+    "red": { "r": 1, "g": 0, "b": 0, "a": 1 },
+    "green": { "r": 0, "g": 1, "b": 0, "a": 1 },
+    "gold": { "r": 1, "g": 0.843, "b": 0, "a": 1 }
   },
   "com.badlogic.gdx.graphics.g2d.BitmapFont": {
-    "default": { "file": "uiskin/default.fnt", "scale": 1 },
-    "small": { "file": "uiskin/default.fnt", "scale": 0.5 },
-    "medium": { "file": "uiskin/default.fnt", "scale": 0.8 },
-    "large": { "file": "uiskin/default.fnt", "scale": 1.2 }
+    "large": { "file": "uiskin/default.fnt", "scaledSize": 20 },
+    "default": { "file": "uiskin/default.fnt", "scaledSize": 22 },
+    "medium": { "file": "uiskin/default.fnt", "scaledSize": 18 },
+    "small": { "file": "uiskin/default.fnt", "scaledSize": 12 },
+    "tiny": { "file": "uiskin/default.fnt", "scaledSize": 8 }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
     "default": {
       "font": "medium",
-      "fontColor": "white",
+      "fontColor": "green",
       "up": "button",
       "down": "button-down",
       "over": "button-over"
@@ -23,12 +26,12 @@
     "default": {
       "titleFont": "large",
       "background": "window",
-      "titleFontColor": "white"
+      "titleFontColor": "gold"
     }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
     "default": {
-      "font": "medium",
+      "font": "default",
       "fontColor": "white"
     },
     "hud-small": {
@@ -42,6 +45,10 @@
     "hud-large": {
       "font": "large",
       "fontColor": "white"
+    },
+    "hud-tiny": {
+      "font": "tiny",
+      "fontColor": "red"
     }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle": {
@@ -53,4 +60,4 @@
       "background": "window"
     }
   }
-} 
+}
