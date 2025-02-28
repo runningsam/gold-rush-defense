@@ -1,0 +1,34 @@
+
+coyote.png
+size: 128, 32
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+parts/body
+  rotate: false
+  xy: 2, 2
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: -1
+parts/head
+  rotate: false
+  xy: 36, 6
+  size: 24, 20
+  orig: 24, 20
+  offset: 0, 0
+  index: -1
+parts/leg
+  rotate: false
+  xy: 62, 10
+  size: 8, 16
+  orig: 8, 16
+  offset: 0, 0
+  index: -1
+parts/tail
+  rotate: false
+  xy: 72, 18
+  size: 16, 8
+  orig: 16, 8
+  offset: 0, 0
+  index: -1

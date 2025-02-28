@@ -6,23 +6,23 @@ import com.badlogic.gdx.utils.Array;
 import code123.games.crystal.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Enemy {
+public abstract class Enemy {
+    protected Vector2 position;
+    protected Vector2 velocity;
     protected float health;
     protected float maxHealth;
     protected float speed;
     protected int reward;
-    private Vector2 position;
-    private Vector2 velocity;
-    private final Sprite sprite;
-    private Array<Vector2> pathPoints;
-    private int currentPoint;
-    private boolean isDead;
-    private boolean hasReachedEnd;
+    protected boolean isDead;
+    protected boolean hasReachedEnd;
+    protected Sprite sprite;
+    protected Array<Vector2> pathPoints;
+    protected int currentPoint;
     
     public Enemy(String type, Array<Vector2> pathPoints) {
-        this.position = new Vector2(pathPoints.first());
-        this.velocity = new Vector2();
         this.pathPoints = pathPoints;
+        this.position = pathPoints.first().cpy();
+        this.velocity = new Vector2();
         this.currentPoint = 1;
         this.isDead = false;
         this.hasReachedEnd = false;
@@ -143,6 +143,6 @@ public class Enemy {
     }
     
     public Vector2 getVelocity() {
-        return velocity.cpy();
+        return velocity;
     }
 }

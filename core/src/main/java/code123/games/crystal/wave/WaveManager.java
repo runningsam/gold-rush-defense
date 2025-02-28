@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 import code123.games.crystal.story.StoryManager;
 import com.badlogic.gdx.Gdx;
+import code123.games.crystal.entities.enemies.BasicEnemy;
+import code123.games.crystal.entities.enemies.AnimatedCoyote;
 
 public class WaveManager {
     private Array<Wave> waves;
@@ -96,14 +98,11 @@ public class WaveManager {
     }
     
     private Enemy createEnemy(String type) {
-        JsonValue enemyConfig = StoryManager.getInstance().getEnemyConfig(type);
-        
-        Enemy enemy = new Enemy(type, pathPoints);
-        enemy.setHealth(enemyConfig.getFloat("health"));
-        enemy.setSpeed(enemyConfig.getFloat("speed"));
-        enemy.setReward(enemyConfig.getInt("reward"));
-        
-        return enemy;
+        if (type.equals("coyote")) {
+            return new AnimatedCoyote(pathPoints);
+        }
+        // 默认返回基础敌人
+        return new BasicEnemy(type, pathPoints);
     }
     
     public boolean isCompleted() {

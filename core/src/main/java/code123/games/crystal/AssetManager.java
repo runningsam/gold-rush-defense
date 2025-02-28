@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
 import java.util.Map;
+import code123.games.crystal.animation.SkeletonManager;
 
 public class AssetManager implements Disposable {
     private static AssetManager instance;
@@ -19,6 +20,7 @@ public class AssetManager implements Disposable {
     private Skin uiSkin;
     private Map<String, Sprite> towerPreviewSprites = new HashMap<>();
     private Sprite glowSprite;
+    private SkeletonManager skeletonManager;
 
     private AssetManager() {
         atlases = new HashMap<>();
@@ -53,7 +55,9 @@ public class AssetManager implements Disposable {
         // 预先创建所有塔的预览精灵
         towerPreviewSprites.put("arrow", createTowerSprite("arrow"));
         towerPreviewSprites.put("magic", createTowerSprite("magic"));
-        // 添加其他类型的塔...
+        
+        // 初始化骨骼动画管理器
+        skeletonManager = new SkeletonManager();
     }
 
     private void loadUISkin() {
@@ -134,6 +138,10 @@ public class AssetManager implements Disposable {
         return glowSprite;
     }
 
+    public SkeletonManager getSkeletonManager() {
+        return skeletonManager;
+    }
+
     @Override
     public void dispose() {
         for (TextureAtlas atlas : atlases.values()) {
@@ -148,6 +156,9 @@ public class AssetManager implements Disposable {
         }
         if (uiSkin != null) {
             uiSkin.dispose();
+        }
+        if (skeletonManager != null) {
+            skeletonManager.dispose();
         }
     }
 }

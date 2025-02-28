@@ -12,6 +12,8 @@ import com.badlogic.gdx.utils.Align;
 import code123.games.crystal.story.StoryManager;
 import com.badlogic.gdx.utils.Timer;
 import code123.games.crystal.save.SaveManager;
+import code123.games.crystal.animation.AnimationManager;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class IntroScreen implements Screen {
     private final Main game;
@@ -23,13 +25,13 @@ public class IntroScreen implements Screen {
         this.game = game;
         this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         
-        // Load assets
         AssetManager.getInstance().loadAssets();
         this.skin = AssetManager.getInstance().getUISkin();
         
-        createUI();
+        // 创建动画
+        AnimationManager.getInstance().createIntroAnimation();
         
-        // Set input processor
+        createUI();
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -137,8 +139,14 @@ public class IntroScreen implements Screen {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
+        // 更新和渲染动画
+        AnimationManager.getInstance().update(delta);
         stage.act(delta);
         stage.draw();
+        
+        stage.getBatch().begin();
+        AnimationManager.getInstance().render((SpriteBatch)stage.getBatch());
+        stage.getBatch().end();
     }
 
     @Override
@@ -161,5 +169,6 @@ public class IntroScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        AnimationManager.getInstance().dispose();
     }
 } 

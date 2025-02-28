@@ -86,18 +86,18 @@ task convertSvgToPng {
         def svgFiles = fileTree('assets').matching {
             include '**/*.svg'
         }
-        
+
         svgFiles.each { File svg ->
             def pngPath = svg.absolutePath.replace('.svg', '.png')
             def inkscapeCmd = ["inkscape",
                              "--export-type=png",
                              "--export-filename=${pngPath}",
                              svg.absolutePath]
-            
+
             println "Converting: ${svg.name} to PNG"
             def process = inkscapeCmd.execute()
             process.waitFor()
-            
+
             if (process.exitValue() == 0) {
                 println "Successfully converted ${svg.name}"
             } else {
@@ -113,15 +113,15 @@ task packTextures {
     dependsOn convertSvgToPng
     doLast {
         file("assets/packed").mkdirs()
-        
+
         def texturePacker = Class.forName("com.badlogic.gdx.tools.texturepacker.TexturePacker")
         def settings = Class.forName("com.badlogic.gdx.tools.texturepacker.TexturePacker\$Settings").newInstance()
-        
+
         settings.maxWidth = 1024
         settings.maxHeight = 1024
         settings.pot = true
         settings.square = false
-        
+
         ["towers", "enemies", "ui", "tiles", "effects"].each { dir ->
             println "Packing textures from: $dir"
             texturePacker.process(
@@ -129,6 +129,15 @@ task packTextures {
                 "assets/$dir",
                 "assets/packed",
                 "${dir}.atlas"
+            )
+        }
+        ["animations/coyote"].each { dir ->
+            println "Packing textures from: $dir to assets/${dir}"
+            texturePacker.process(
+                settings,
+                "assets/$dir",
+                "assets/${dir}",
+                "${dir.split("/")[1]}.atlas"
             )
         }
     }
@@ -176,7 +185,7 @@ task generateFont {
     doLast {
         if (System.getProperty("os.name").toLowerCase().contains("mac")) {
             project.exec {
-                commandLine "java", 
+                commandLine "java",
                           "-XstartOnFirstThread",
                           "-cp", (sourceSets.fontGeneration.runtimeClasspath as List).join(File.pathSeparator),
                           "com.caystal.tools.FontGeneratorMain"
@@ -185,12 +194,12 @@ task generateFont {
             def config = new Lwjgl3ApplicationConfiguration()
             config.setWindowedMode(1, 1)
             config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 4)
-            
+
             new Lwjgl3Application(new ApplicationAdapter() {
                 @Override
                 void create() {
                     try {
-                        FreeTypeFontParameter param = new FreeTypeFontParameter()
+                        def param = new FreeTypeFontParameter()
                         param.size = 32
                         param.gamma = 2f
                         param.shadowOffsetY = 1
@@ -198,10 +207,10 @@ task generateFont {
                         param.shadowColor = new Color(0, 0, 0, 0.45f)
                         param.characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
-                        FileHandle fontFile = Gdx.files.internal("uiskin/Arial.ttf")
-                        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile)
+                        def fontFile = Gdx.files.internal("uiskin/Arial.ttf")
+                        def generator = new FreeTypeFontGenerator(fontFile)
                         generator.generateFont(param).save(Gdx.files.local("assets/uiskin/default.fnt"))
-                        
+
                         generator.dispose()
                     } finally {
                         Gdx.app.exit()
