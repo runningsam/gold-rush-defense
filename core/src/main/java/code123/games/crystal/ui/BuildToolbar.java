@@ -5,11 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import code123.games.crystal.AssetManager;
 import code123.games.crystal.GameWorld;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -17,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import java.util.function.Consumer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.Gdx;
 
 public class BuildToolbar {
@@ -80,19 +76,41 @@ public class BuildToolbar {
         TextureAtlas.AtlasRegion buttonRegion = atlas.findRegion("button_background");  // 暂时复用这个背景
         NinePatch buttonPatch = new NinePatch(buttonRegion, 4, 4, 4, 4);
         NinePatchDrawable buttonBackground = new NinePatchDrawable(buttonPatch);
+       
+        // 创建悬停状态的背景 (使用明显不同的颜色)
+        NinePatchDrawable hoverBackground = new NinePatchDrawable(buttonPatch);
+        hoverBackground.setMinWidth(buttonPatch.getTotalWidth());
+        hoverBackground.setMinHeight(buttonPatch.getTotalHeight());
+        hoverBackground.setLeftWidth(buttonPatch.getLeftWidth());
+        hoverBackground.setRightWidth(buttonPatch.getRightWidth());
+        hoverBackground.setTopHeight(buttonPatch.getTopHeight());
+        hoverBackground.setBottomHeight(buttonPatch.getBottomHeight());
+        hoverBackground = hoverBackground.tint(new com.badlogic.gdx.graphics.Color(2.0f, 2.0f, 0.5f, 1f));
+
+        NinePatchDrawable downBackground = hoverBackground.tint(new com.badlogic.gdx.graphics.Color(0.8f, 0.8f, 0.8f, 1f));
+
+        ImageButton.ImageButtonStyle baseStyle = new ImageButton.ImageButtonStyle();
+        baseStyle.up = buttonBackground;
+        baseStyle.over = hoverBackground;
+        baseStyle.down = downBackground;
+
+        ImageButton.ImageButtonStyle arrowStyle = new ImageButton.ImageButtonStyle(baseStyle);
+        arrowStyle.imageUp = new TextureRegionDrawable(arrowTowerIcon);
+        
+        // 魔法塔按钮样式
+        ImageButton.ImageButtonStyle magicStyle = new ImageButton.ImageButtonStyle(baseStyle);
+        magicStyle.imageUp = new TextureRegionDrawable(magicTowerIcon);
         
         // 箭塔按钮
-        ImageButton arrowButton = new ImageButton(new TextureRegionDrawable(arrowTowerIcon));
-        // 箭塔按钮
+        ImageButton arrowButton = new ImageButton(arrowStyle);
+        
         Table arrowTable = new Table();
-        arrowTable.setBackground(buttonBackground);
         arrowTable.add(arrowButton).size(buttonSize).pad(0).center();
         toolbarTable.add(arrowTable).padRight(4);
         
         // 魔法塔按钮
-        ImageButton magicButton = new ImageButton(new TextureRegionDrawable(magicTowerIcon));
+        ImageButton magicButton = new ImageButton(magicStyle);
         Table magicTable = new Table();
-        magicTable.setBackground(buttonBackground);
         magicTable.add(magicButton).size(buttonSize).pad(0).center();
         toolbarTable.add(magicTable);
         
