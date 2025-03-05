@@ -27,7 +27,9 @@ public class TeaVMBuilder {
             .add(AssetFileHandle.createCopyHandle("../assets/sounds/", FileType.Absolute, "sounds/")) ;
         teaBuildConfiguration.assetsPath
             .add(AssetFileHandle.createCopyHandle("../assets/music/", FileType.Absolute, "music/")) ;
-     
+        teaBuildConfiguration.assetsPath
+            .add(AssetFileHandle.createCopyHandle("../assets/animations/", FileType.Absolute, "animations/", (file, type, op) -> !type)) ;
+
         teaBuildConfiguration.webappPath = new File("build/dist").getCanonicalPath();
 
         // Register any extra classpath assets here:
