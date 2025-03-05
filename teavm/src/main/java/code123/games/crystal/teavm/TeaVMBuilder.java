@@ -28,7 +28,14 @@ public class TeaVMBuilder {
         teaBuildConfiguration.assetsPath
             .add(AssetFileHandle.createCopyHandle("../assets/music/", FileType.Absolute, "music/")) ;
         teaBuildConfiguration.assetsPath
-            .add(AssetFileHandle.createCopyHandle("../assets/animations/", FileType.Absolute, "animations/", (file, type, op) -> !type)) ;
+            .add(AssetFileHandle.createCopyHandle("../assets/animations/", FileType.Absolute, "animations/",
+             (file, type, op) -> {
+                // Ignore files with in parts folder
+                if (file.contains("/parts/")) {
+                    return false;
+                }
+                return true;
+             })) ;
 
         teaBuildConfiguration.webappPath = new File("build/dist").getCanonicalPath();
 
